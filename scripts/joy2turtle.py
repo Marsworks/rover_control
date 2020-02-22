@@ -38,7 +38,7 @@ def callback(data):
 		
 
 def start():
-""" Intializes everything """
+#""" Intializes everything """
 	# publishing to "/cmd_vel" and "/toggle_cam"
 	global pub_move
 	global pub_cam
@@ -57,7 +57,7 @@ def start():
 
 
 def loco(mov_data,mov_twist):
-""" Locomotion Control """
+#       """ Locomotion Control """
 
 	twist = Twist()
 
@@ -68,11 +68,11 @@ def loco(mov_data,mov_twist):
 
 
 def arm(data):
-""" Arm Control  """
-
+#        """ Arm Control  """
+        pass
 
 def reset():
-""" Reset Arm and Loco motors """   
+#""" Reset Arm and Loco motors """   
     pub_move.publish(Twist(linear=0,angular=0)
     # PUT ARM PUBLISHER HERE SET TO DEFAULT
 
