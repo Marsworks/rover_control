@@ -3,16 +3,10 @@
   <name>teleop</name>
   <version>0.1.0</version>
   <description>MarsWorks teleop package.</description>
-  <license>TODO</license>
+  <maintainer email="aanabbas1@sheffield.ac.uk">Ahmed Abbas</maintainer>
+  <license>BSD</license>
   <buildtool_depend>catkin</buildtool_depend>
   <depend>rosserial_python</depend>
-  <build_depend>differential_drive</build_depend>
-  <build_depend>joy</build_depend>
-  <build_depend>rospy</build_depend>
-  <build_export_depend>differential_drive</build_export_depend>
-  <build_export_depend>joy</build_export_depend>
-  <build_export_depend>rospy</build_export_depend>
-  <exec_depend>differential_drive</exec_depend>
-  <exec_depend>joy</exec_depend>
-  <exec_depend>rospy</exec_depend>
+  <depend>joy</depend>
+  <depend>rospy</depend>
 </package>
