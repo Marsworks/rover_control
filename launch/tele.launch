@@ -1,0 +1,29 @@
+<!-- 
+This launch files runs all the neccessary nodes
+to get teleop working
+-->
+
+<launch>
+  <master auto="start"/>
+  
+  <!-- Args -->
+  <arg name="ser_port" default="/dev/ttyACM0" />
+  <arg name="joy_port" default="/dev/input/js2" />
+
+  <!-- Joy node -->
+  <node name="joy_node" pkg="joy" type="joy_node">
+    <param name="dev" value="$(arg joy_port)" />
+  </node>
+
+  <!-- Joy2Serial node -->
+  <node name="joy2serial" pkg="learning_joy" type="joy2turtle.py"/>
+
+  <!-- Differential node -->
+  <node name="twist2motors" type="twist_to_motors.py" pkg="differential_drive">
+    <remap from="twist" to="cmd_vel"/>
+  </node>
+
+  <!-- Serial node -->
+  <node name="Arduinode" type="serial_node.py" pkg="rosserial_python" args="$(arg ser_port)" />
+
+</launch>
