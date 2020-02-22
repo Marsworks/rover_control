@@ -18,63 +18,71 @@ from std_msgs.msg import UInt8
 
 
 def callback(data):
-	tog = UInt8()
-	
-        if data.buttons[6] == 1.0:
-            mode = not mode
-            reset()
-        if mode:
-            loco(data)
-        elif not mode:
-            arm(data)
+    tog = UInt8()
+    
+    if data.buttons[6] == 1.0:
+        mode = not mode
+        reset()
+   
+    if mode:
+        loco(data)
+    elif not mode:
+        arm(data)
 
 
-	if data.buttons[4] == 1.0:
-		tog.data = 1
-		pub_cam.publish(tog)
-	elif data.buttons[5] == 1.0:	
-		tog.data = 2
-		pub_cam.publish(tog)
-		
+    if data.buttons[4] == 1.0:
+        tog.data = 1
+        pub_cam.publish(tog)
+    elif data.buttons[5] == 1.0:	
+        tog.data = 2
+        pub_cam.publish(tog)
+
 
 def start():
-#""" Intializes everything """
-	# publishing to "/cmd_vel" and "/toggle_cam"
-	global pub_move
-	global pub_cam
-        
-        global mode = True 
+# Intializes everything
+    # publishing to "/cmd_vel" and "/toggle_cam"
+    global pub_move
+    global pub_cam
+    
+    global mode 
+    
+    mode = True
 
-	pub_move = rospy.Publisher('/cmd_vel', Twist)
-	pub_cam = rospy.Publisher('/toggle_cam', UInt8)
-        
-	# subscribed to joystick inputs on topic "joy"
-	rospy.Subscriber("joy", Joy, callback)
-	
-	# starts the node
-	rospy.init_node('Joy2Serial')
-	rospy.spin()
+    pub_move = rospy.Publisher('/cmd_vel', Twist)
+    pub_cam = rospy.Publisher('/toggle_cam', UInt8)
+    
+    # subscribed to joystick inputs on topic "joy"
+    rospy.Subscriber("joy", Joy, callback)
+    
+    # starts the node
+    rospy.init_node('Joy2Serial')
+    rospy.spin()
 
 
 def loco(mov_data,mov_twist):
-#       """ Locomotion Control """
+# Locomotion Control
 
-	twist = Twist()
+    twist = Twist()
 
- 	twist.linear.x = 4*mov_data.axes[1]
-	twist.angular.z = 4*mov_data.axes[0]
+    twist.linear.x = 4*mov_data.axes[1]
+    twist.angular.z = 4*mov_data.axes[0]
 
-	pub_move.publish(twist)
+    pub_move.publish(twist)
 
 
 def arm(data):
-#        """ Arm Control  """
-        pass
+# Arm Control
+    pass
+
 
 def reset():
-#""" Reset Arm and Loco motors """   
-    pub_move.publish(Twist(linear=0,angular=0)
+# Reset Arm and Loco motors   
+    twist = Twist()
+    twist.linear.x=0
+    twist.angular.z=0
+    pub_move.publish(twist)
     # PUT ARM PUBLISHER HERE SET TO DEFAULT
 
-if __name__ == '__main__':
-	start()
+
+if __name__ == "__main__":
+    start()
