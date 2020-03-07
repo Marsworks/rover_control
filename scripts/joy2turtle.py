@@ -16,10 +16,11 @@ from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Joy
 from std_msgs.msg import UInt8 
 
+mode = True
 
 def callback(data):
     tog = UInt8()
-    
+    global mode    
     if data.buttons[6] == 1.0:
         mode = not mode
         reset()
@@ -59,7 +60,7 @@ def start():
     rospy.spin()
 
 
-def loco(mov_data,mov_twist):
+def loco(mov_data):
 # Locomotion Control
 
     twist = Twist()
