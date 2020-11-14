@@ -29,7 +29,7 @@ from std_msgs.msg import UInt8, Float32
 class Joy2Rover:
     
     
-    def init(self, name='Joy2Rover', stick_type=True):
+    def __init__(self, name='Joy2Rover', stick_type=True):
         """
         Initialise the joy2rover node
 
@@ -63,7 +63,7 @@ class Joy2Rover:
             self.pub_move = rospy.Publisher('/cmd_vel', Twist)
         
         # Start the cam publisher
-        self.pub_cam = rospy.Publisher('/toggle_cam', UInt8)
+        self.pub_cam = rospy.Publisher('/toggle_cam', UInt8, queue_size=10)
 
         # subscribed to joystick inputs on topic "joy"
         rospy.Subscriber("joy", Joy, self.callback)
@@ -93,9 +93,9 @@ class Joy2Rover:
             self.mode = not self.mode
             self.reset()
     
-        if mode:
+        if self.mode:
             self.loco(data)
-        elif not mode:
+        else:
             self.arm(data)
 
 
@@ -141,8 +141,8 @@ class Joy2Rover:
             self.left = joy_data.axes[1]
             self.right = joy_data.axes[4]
 
-            self.pub_left_vel(self.left)
-            self.pub_right_vel(self.right)
+            self.pub_left_vel.publish(self.left)
+            self.pub_right_vel.publish(self.right)
         else:
             # One Stick Control
             twist = Twist()
