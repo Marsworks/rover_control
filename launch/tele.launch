@@ -16,10 +16,10 @@ to get teleop working
   </node>
 
   <!-- Joy2Serial node -->
-  <node name="joy2serial" pkg="teleop" type="joy2turtle.py"/>
+  <node name="joy2serial" pkg="rover_control" type="joy2turtle.py"/>
 
   <!-- Differential node -->
-  <node name="twist2motors" type="twist_to_motors.py" pkg="teleop">
+  <node name="twist2motors" type="twist_to_motors.py" pkg="rover_control">
     <remap from="twist" to="cmd_vel"/>
   </node>
 
