@@ -1,10 +1,10 @@
-# teleop
-Marsworks 2020 teleop ROS package
+# rover_control
+Marsworks 2020 rover_control ROS package
 
 ## Requirements
 ### System Requirements
-* Ubuntu 16.04
-* ROS Kinect
+* Ubuntu 16.04/18.04
+* ROS Kinect/Melodic
 
 ### ROS Packages
 * joy

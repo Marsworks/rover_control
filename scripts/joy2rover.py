@@ -17,6 +17,8 @@ buttons 4 (LB) toggles the camera left
 buttons 5 (RB) toggles the camera right
 buttons 6 (Back/Select) changes the mode from locomotion to arm control and vice-versa
 
+TODO: Set-up enums for the joystick positions
+
 """
 
 import rospy
@@ -27,7 +29,6 @@ from std_msgs.msg import UInt8, Float32
 
 
 class Joy2Rover:
-    
     
     def __init__(self, name='Joy2Rover', stick_type=True):
         """
@@ -47,9 +48,12 @@ class Joy2Rover:
 
         self.node_name = rospy.get_name()
         rospy.loginfo("Started node: %s", self.node_name)
-
-        self.mode = True
-        self.two_stick = stick_type
+        
+        stick_type = rospy.get_param("~stick_type", True)
+        
+        self.mode = True # TODO: rename this
+        self.two_stick = stick_type 
+        
         
         # Only start the correct publishers
         if self.two_stick:
@@ -90,7 +94,7 @@ class Joy2Rover:
         
         # Select button -> change mode
         if data.buttons[6] == 1.0:
-            self.mode = not self.mode
+            self.mode = not self.mode # TODO: set roslog
             self.reset()
     
         if self.mode:
@@ -134,7 +138,6 @@ class Joy2Rover:
         joy_data: :class: Joy
                 Joy msg to parse
         """
-        
         
         if self.two_stick:
             # Two Stick Control
