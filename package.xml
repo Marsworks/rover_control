@@ -4,9 +4,9 @@
   <version>0.1.0</version>
   <description>MarsWorks main control package.</description>
   <maintainer email="aanabbas1@sheffield.ac.uk">Ahmed Abbas</maintainer>
-  <license>BSD</license>
+  <license></license>
   <buildtool_depend>catkin</buildtool_depend>
-  <depend>rosserial_python</depend>
   <depend>joy</depend>
   <depend>rospy</depend>
+  <depend>roscpp</depend>
 </package>
