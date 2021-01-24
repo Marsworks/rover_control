@@ -24,7 +24,7 @@ TODO: Set-up enums for the joystick positions
 import rospy
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Joy
-from std_msgs.msg import UInt8, Float32
+from std_msgs.msg import UInt8, Float64
 
 
 
@@ -58,8 +58,8 @@ class Joy2Rover:
         # Only start the correct publishers
         if self.two_stick:
             rospy.loginfo("Node: %s running with 2 analog sticks!", self.node_name)
-            self.pub_left_vel = rospy.Publisher('lwheel_vtarget', Float32, queue_size=10)
-            self.pub_right_vel = rospy.Publisher('rwheel_vtarget', Float32, queue_size=10)
+            self.pub_left_vel = rospy.Publisher('lwheel_vtarget', Float64, queue_size=10)
+            self.pub_right_vel = rospy.Publisher('rwheel_vtarget', Float64, queue_size=10)
             self.left = 0
             self.right = 0
         else:
