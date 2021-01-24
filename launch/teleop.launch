@@ -1,0 +1,36 @@
+<!-- 
+This launch files runs all the neccessary nodes
+to get teleop working
+-->
+
+<launch>
+  <master auto="start"/>
+  
+  <!-- Args -->
+  <arg name="ser_port" default="/dev/ttyACM0" />
+  <arg name="joy_port" default="/dev/input/js0" />
+  <arg name="use_py" default="false"/>
+
+  <!-- Joy node -->
+  <node name="joy_node" pkg="joy" type="joy_node">
+    <param name="dev" value="$(arg joy_port)" />
+  </node>
+
+
+  <!-- Telop node -->
+
+  <group unless="$(arg use_py)" >
+    <node name="rover_joy" pkg="rover_control" type="joy_teleop"/>
+  </group>
+  
+  <group if="$(arg use_py)">
+      <node name="rover_joy" pkg="rover_control" type="joy2rover.py"/>
+
+      <!-- Differential node -->
+      <node name="twist2motors" type="twist_to_motors.py" pkg="rover_control">
+        <remap from="twist" to="cmd_vel"/>
+      </node>
+  </group>
+  
+
+</launch>
