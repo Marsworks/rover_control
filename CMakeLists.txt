@@ -10,6 +10,7 @@ project(rover_control)
 find_package(catkin REQUIRED COMPONENTS
   joy
   rospy
+  roscpp
   rosserial_python
 )
 
@@ -31,3 +32,8 @@ include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
 )
+
+
+
+add_executable(joy_teleop src/joy_teleop.cpp)
+target_link_libraries(joy_teleop ${catkin_LIBRARIES})
